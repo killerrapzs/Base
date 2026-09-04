@@ -335,6 +335,8 @@ const ctx = canvas.getContext('2d');
 
 let particlesArray = [];
 const numberOfParticles = 25;
+let particleImage = new Image();
+particleImage.src = 'https://pngup.com/7cMG/1000039636.png';
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -348,16 +350,10 @@ class Particle {
     constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = 8;
+        this.size = 40;
         this.speedX = (Math.random() * 1) - 0.5;
         this.speedY = (Math.random() * 1) - 0.5;
-        this.color = this.getRandomColor();
         this.opacity = 0.3 + Math.random() * 0.3;
-    }
-
-    getRandomColor() {
-        const colors = ['#0052ff', '#ccff00', '#2b70ff'];
-        return colors[Math.floor(Math.random() * colors.length)];
     }
 
     update() {
@@ -371,9 +367,8 @@ class Particle {
     }
 
     draw() {
-        ctx.fillStyle = this.color;
         ctx.globalAlpha = this.opacity;
-        ctx.fillRect(this.x, this.y, this.size, this.size);
+        ctx.drawImage(particleImage, this.x, this.y, this.size, this.size);
         ctx.globalAlpha = 1.0;
     }
 }
