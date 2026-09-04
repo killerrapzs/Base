@@ -173,6 +173,7 @@ box-shadow: 5px 5px 0 var(--border);
 display: flex;
 justify-content: center;
 align-items: center;
+min-width: 100px;
 }
 
 /* Neo-Brutalist Cards */
@@ -204,6 +205,7 @@ border: 3px solid var(--border);
 padding: 8px;
 margin-top: 1rem;
 gap: 8px;
+flex-wrap: wrap;
 }
 
 .copy-widget input {
@@ -213,6 +215,11 @@ padding: 8px;
 font-family: var(--font-mono);
 font-weight: 700;
 background: #ffffff;
+min-width: 200px;
+}
+
+.copy-widget button {
+white-space: nowrap;
 }
 
 footer {
@@ -229,6 +236,8 @@ z-index: 10;
 @media (max-width: 768px) {
 header { flex-direction: column; gap: 1rem; }
 .hero-text h1 { font-size: 2rem; }
+.hero { flex-direction: column; text-align: center; }
+.ticker { animation: marquee 20s linear infinite; }
 }
 </style>
 </head>
@@ -238,7 +247,7 @@ header { flex-direction: column; gap: 1rem; }
 
 <div class="ticker-wrap">
 <div class="ticker">
- 🐬 BaseDOLL: Join the Wave on Base Chain! 🚀 Low Fees! Big Fun! 100% Locked Liquidity! &nbsp;&nbsp;&nbsp;&nbsp; 🐬 BaseDOLL: Join the Wave on Base Chain! 🚀 Low Fees! Big Fun! 100% Locked Liquidity!
+ 🐬 BaseDOLL: Join the Wave on Base Chain! 🚀 Low Fees! Big Fun! 100% Locked Liquidity! &nbsp;&nbsp;&nbsp;&nbsp; 🐬 BaseDOLL: Join the Wave on Base Chain! 🚀 Low Fees! Big Fun! 100% Locked Liquidity! &nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 </div>
 
@@ -260,7 +269,14 @@ header { flex-direction: column; gap: 1rem; }
 <a href="https://t.me/+204vdFwF5eVhYjI5" class="btn" style="font-size: 1.2rem;" target="_blank" rel="noopener noreferrer">Join the Community!</a>
 </div>
 <div class="hero-graphic">
-  <img src="https://i.ibb.co/b59bHwB7/coinbase-logo-icon.jpg" alt="Coinbase Logo" style="width: 80px; height: 80px; display: block; object-fit: contain;">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width: 100px; height: 100px;">
+    <!-- Base circular background -->
+    <circle cx="50" cy="50" r="45" fill="#1652f0" stroke="black" stroke-width="2"/>
+    <!-- Inner circle -->
+    <circle cx="50" cy="50" r="38" fill="#0052ff" stroke="black" stroke-width="1"/>
+    <!-- B Letter -->
+    <text x="50" y="65" font-size="48" font-weight="bold" text-anchor="middle" fill="white" font-family="Arial, sans-serif">B</text>
+  </svg>
 </div>
 </section>
 
@@ -325,17 +341,7 @@ const canvas = document.getElementById('particles-canvas');
 const ctx = canvas.getContext('2d');
 
 let particlesArray = [];
-const numberOfParticles = 30;
-let isImageLoaded = false;
-
-// Direct pixel art image asset
-const particleImage = new Image();
-particleImage.crossOrigin = "anonymous";
-particleImage.src = 'https://i.ibb.co/TqtrgqDR/IMG-20260903-195157-24-x-24-pixel.png';
-
-particleImage.onload = () => {
-    isImageLoaded = true;
-};
+const numberOfParticles = 25;
 
 function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -349,9 +355,16 @@ class Particle {
     constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = 28; // Rendered size of the pixel sprite
-        this.speedX = (Math.random() * 1.5) - 0.75;
-        this.speedY = (Math.random() * 1.5) - 0.75;
+        this.size = 8;
+        this.speedX = (Math.random() * 1) - 0.5;
+        this.speedY = (Math.random() * 1) - 0.5;
+        this.color = this.getRandomColor();
+        this.opacity = 0.3 + Math.random() * 0.3;
+    }
+
+    getRandomColor() {
+        const colors = ['#0052ff', '#ccff00', '#2b70ff'];
+        return colors[Math.floor(Math.random() * colors.length)];
     }
 
     update() {
@@ -365,11 +378,10 @@ class Particle {
     }
 
     draw() {
-        if (isImageLoaded) {
-            // Keep pixel rendering crisp
-            ctx.imageSmoothingEnabled = false;
-            ctx.drawImage(particleImage, this.x, this.y, this.size, this.size);
-        }
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.fillRect(this.x, this.y, this.size, this.size);
+        ctx.globalAlpha = 1.0;
     }
 }
 
