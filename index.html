@@ -334,7 +334,7 @@ const canvas = document.getElementById('particles-canvas');
 const ctx = canvas.getContext('2d');
 
 let particlesArray = [];
-const numberOfParticles = 25;
+const numberOfParticles = 50;
 let particleImage = new Image();
 particleImage.src = 'https://pngup.com/7cMG/1000039636.png';
 
@@ -346,11 +346,45 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-class Particle {
+class ColoredParticle {
     constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = 40;
+        this.size = 18;
+        this.speedX = (Math.random() * 1) - 0.5;
+        this.speedY = (Math.random() * 1) - 0.5;
+        this.color = this.getRandomColor();
+        this.opacity = 0.3 + Math.random() * 0.3;
+    }
+
+    getRandomColor() {
+        const colors = ['#0052ff', '#ccff00', '#2b70ff'];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < -this.size) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = -this.size;
+        if (this.y < -this.size) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = -this.size;
+    }
+
+    draw() {
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.opacity;
+        ctx.fillRect(this.x, this.y, this.size, this.size);
+        ctx.globalAlpha = 1.0;
+    }
+}
+
+class ImageParticle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = 18;
         this.speedX = (Math.random() * 1) - 0.5;
         this.speedY = (Math.random() * 1) - 0.5;
         this.opacity = 0.3 + Math.random() * 0.3;
@@ -376,7 +410,12 @@ class Particle {
 function initParticles() {
     particlesArray = [];
     for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
+        // Mix: alternate between colored and image particles
+        if (i % 2 === 0) {
+            particlesArray.push(new ColoredParticle());
+        } else {
+            particlesArray.push(new ImageParticle());
+        }
     }
 }
 
