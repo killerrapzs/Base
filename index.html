@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BaseDOLL.lol | $BaseDOLL</title>
+<meta name="description" content="BaseDOLL is powered by pixel vibes and an incredible community.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+--primary: #0052ff;
+--accent: #ccff00;
+--bg: #e2f1ff;
+--card-bg: #ffffff;
+--text: #000000;
+--border: #000000;
+--font-mono: 'Fira Code', monospace;
+}
+
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+background-color: var(--bg);
+color: var(--text);
+font-family: var(--font-mono);
+line-height: 1.5;
+overflow-x: hidden;
+position: relative;
+}
+
+/* Background Particles Canvas */
+#particles-canvas {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+z-index: -1;
+pointer-events: none;
+}
+
+/* Ticker Tape Bar */
+.ticker-wrap {
+background: var(--accent);
+border-bottom: 3px solid var(--border);
+overflow: hidden;
+white-space: nowrap;
+padding: 8px 0;
+font-weight: 700;
+position: relative;
+z-index: 10;
+}
+
+.ticker {
+display: inline-block;
+animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+0% { transform: translateX(0); }
+100% { transform: translateX(-50%); }
+}
+
+/* Navigation */
+header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem 2rem;
+background: var(--primary);
+border-bottom: 3px solid var(--border);
+position: relative;
+z-index: 10;
+}
+
+.logo {
+font-size: 1.5rem;
+font-weight: 700;
+color: #ffffff;
+text-decoration: none;
+background: var(--text);
+padding: 4px 12px;
+border: 2px solid var(--border);
+box-shadow: 3px 3px 0 var(--accent);
+}
+
+nav {
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+
+nav a {
+text-decoration: none;
+color: #ffffff;
+font-weight: 700;
+text-transform: uppercase;
+}
+
+/* Buttons */
+.btn {
+display: inline-block;
+padding: 0.6rem 1.2rem;
+background: var(--accent);
+color: var(--text);
+font-family: var(--font-mono);
+font-weight: 700;
+text-decoration: none;
+text-transform: uppercase;
+border: 3px solid var(--border);
+box-shadow: 4px 4px 0px var(--border);
+cursor: pointer;
+transition: all 0.1s ease;
+}
+
+.btn:hover {
+transform: translate(-2px, -2px);
+box-shadow: 6px 6px 0px var(--border);
+}
+
+.btn:active {
+transform: translate(2px, 2px);
+box-shadow: 2px 2px 0px var(--border);
+}
+
+/* Layout */
+.container {
+max-width: 1100px;
+margin: 0 auto;
+padding: 2rem 1rem;
+position: relative;
+z-index: 10;
+}
+
+.hero {
+background: #2b70ff;
+border: 3px solid var(--border);
+box-shadow: 8px 8px 0px var(--border);
+padding: 3rem 2rem;
+color: #ffffff;
+margin-bottom: 2rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+gap: 2rem;
+}
+
+.hero-text h1 {
+font-size: 2.8rem;
+line-height: 1.1;
+text-shadow: 3px 3px 0 var(--border);
+margin-bottom: 1rem;
+}
+
+.hero-graphic {
+background: var(--accent);
+border: 3px solid var(--border);
+padding: 1rem;
+box-shadow: 5px 5px 0 var(--border);
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+/* Neo-Brutalist Cards */
+.card {
+background: var(--card-bg);
+border: 3px solid var(--border);
+box-shadow: 6px 6px 0px var(--border);
+padding: 1.5rem;
+margin-bottom: 1.5rem;
+}
+
+.grid-3 {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 1.5rem;
+}
+
+.grid-2 {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+gap: 1.5rem;
+}
+
+/* Copy Address Widget */
+.copy-widget {
+display: flex;
+background: var(--accent);
+border: 3px solid var(--border);
+padding: 8px;
+margin-top: 1rem;
+gap: 8px;
+}
+
+.copy-widget input {
+flex: 1;
+border: 2px solid var(--border);
+padding: 8px;
+font-family: var(--font-mono);
+font-weight: 700;
+background: #ffffff;
+}
+
+footer {
+background: var(--primary);
+color: #ffffff;
+border-top: 3px solid var(--border);
+padding: 2rem;
+text-align: center;
+font-weight: 700;
+position: relative;
+z-index: 10;
+}
+
+@media (max-width: 768px) {
+header { flex-direction: column; gap: 1rem; }
+.hero-text h1 { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles-canvas"></canvas>
+
+<div class="ticker-wrap">
+<div class="ticker">
+ 🐬 BaseDOLL: Join the Wave on Base Chain! 🚀 Low Fees! Big Fun! 100% Locked Liquidity! &nbsp;&nbsp;&nbsp;&nbsp; 🐬 BaseDOLL: Join the Wave on Base Chain! 🚀 Low Fees! Big Fun! 100% Locked Liquidity!
+</div>
+</div>
+
+<header>
+<a href="#" class="logo">BASE DOLL</a>
+<nav>
+<a href="#about">DOLLhouse</a>
+<a href="https://gmgn.ai/base/token/0xa524ce721ada661548223384dc4e7da6177eeb07" class="btn" target="_blank" rel="noopener noreferrer">Buy $BaseDOLL</a>
+</nav>
+</header>
+
+<main class="container">
+
+<section class="hero">
+<div class="hero-text">
+<h1>$BaseDOLL<br>UNLEASH THE FUN ON BASE!</h1>
+<p>Ultra-low Gas Fee Ecosystem | Powered by Community</p>
+<br>
+<a href="https://t.me/+204vdFwF5eVhYjI5" class="btn" style="font-size: 1.2rem;" target="_blank" rel="noopener noreferrer">Join the Community!</a>
+</div>
+<div class="hero-graphic">
+  <img src="https://i.ibb.co/b59bHwB7/coinbase-logo-icon.jpg" alt="Coinbase Logo" style="width: 80px; height: 80px; display: block; object-fit: contain;">
+</div>
+</section>
+
+<h2 style="text-transform: uppercase; margin-bottom: 1rem;">The Dollhouse (About)</h2>
+<section id="about" class="grid-3" style="margin-bottom: 2.5rem;">
+<div class="card">
+<h3>👾 Pixel Dolls</h3>
+<p>Interactive community-driven pixel baseDOLL bringing classic vibe and web3 utility together.</p>
+</div>
+<div class="card">
+<h3>Based Community Vibes</h3>
+<p>Driven by an active, vibrant meme community spreading positivity across the Base ecosystem.</p>
+</div>
+<div class="card">
+<h3>Why $BaseDOLL? 🤔</h3>
+<p>It's more than just a token. It's the next wave on the Base chain, powered by an incredible community of BaseDOLLS! 
+This isn't just a trade, it's a movement. Join the Base revolution!</p>
+</div>
+</section>
+
+<section id="economy" class="grid-2">
+
+<div class="card">
+<h2>Base Economy</h2>
+<p><strong>Tokenomics Overview</strong></p>
+<hr style="margin: 1rem 0; border: 1px solid var(--border);">
+
+<p>🔒 <strong>100% Locked Liquidity</strong></p>
+<p>⚡ <strong>0% Buy / Sell Tax</strong></p>
+<p>🚀 <strong>Fair Launch on Base</strong></p>
+</div>
+
+<div class="card" id="buy">
+<h2>How to Join</h2>
+<p>1. Bridge ETH to the <strong>Base Network</strong></p>
+<p>2. Swap ETH for <strong>$BaseDOLL</strong></p>
+
+<div class="copy-widget">
+<input type="text" value="0xA524CE721ada661548223384Dc4E7dA6177eeb07" id="caInput" readonly>
+<button class="btn" onclick="copyCA()">Copy</button>
+</div>
+</div>
+
+</section>
+
+</main>
+
+<footer>
+<p>The Wave Is Here! WAGMI! © BaseDOLL.lol</p>
+</footer>
+
+<script>
+function copyCA() {
+var copyText = document.getElementById("caInput");
+copyText.select();
+copyText.setSelectionRange(0, 99999);
+navigator.clipboard.writeText(copyText.value);
+alert("Contract Address Copied!");
+}
+
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+
+let particlesArray = [];
+const numberOfParticles = 30;
+let isImageLoaded = false;
+
+// Direct pixel art image asset
+const particleImage = new Image();
+particleImage.crossOrigin = "anonymous";
+particleImage.src = 'https://i.ibb.co/TqtrgqDR/IMG-20260903-195157-24-x-24-pixel.png';
+
+particleImage.onload = () => {
+    isImageLoaded = true;
+};
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = 28; // Rendered size of the pixel sprite
+        this.speedX = (Math.random() * 1.5) - 0.75;
+        this.speedY = (Math.random() * 1.5) - 0.75;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x < -this.size) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = -this.size;
+        if (this.y < -this.size) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = -this.size;
+    }
+
+    draw() {
+        if (isImageLoaded) {
+            // Keep pixel rendering crisp
+            ctx.imageSmoothingEnabled = false;
+            ctx.drawImage(particleImage, this.x, this.y, this.size, this.size);
+        }
+    }
+}
+
+function initParticles() {
+    particlesArray = [];
+    for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+    }
+}
+
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+    }
+    requestAnimationFrame(animateParticles);
+}
+
+initParticles();
+animateParticles();
+</script>
+</body>
+</html>
