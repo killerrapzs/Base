@@ -353,13 +353,7 @@ class ColoredParticle {
         this.size = 18;
         this.speedX = (Math.random() * 1) - 0.5;
         this.speedY = (Math.random() * 1) - 0.5;
-        this.color = this.getRandomColor();
         this.opacity = 0.3 + Math.random() * 0.3;
-    }
-
-    getRandomColor() {
-        const colors = ['#0052ff', '#ccff00', '#2b70ff'];
-        return colors[Math.floor(Math.random() * colors.length)];
     }
 
     update() {
@@ -373,7 +367,7 @@ class ColoredParticle {
     }
 
     draw() {
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = '#ffffff';
         ctx.globalAlpha = this.opacity;
         ctx.fillRect(this.x, this.y, this.size, this.size);
         ctx.globalAlpha = 1.0;
